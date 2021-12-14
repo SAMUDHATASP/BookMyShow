@@ -4,5 +4,5 @@ http:
   
   
 autoDiscovery:
-  id: "17503900"
-  flowName: "Movies"
+  Id: "17503900"
+  flowName: "bookmyshow-movies-sys-api-main"

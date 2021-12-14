@@ -50,7 +50,7 @@ output application/json
 }]]></ee:set-payload>
 					</ee:message>
 				</ee:transform>
-				<logger level="INFO" doc:name="Logger" doc:id="a2911bb6-cf7c-4f0d-8180-19d320601cde" message='#[output application/json&#10;---&#10;{&#10;	"ERROR": "get/movies - error occured while fetching movie records",&#10;	"PAYLOAD": payload&#10;}]'/>
+				<logger level="ERROR" doc:name="Logger" doc:id="a2911bb6-cf7c-4f0d-8180-19d320601cde" message='#[output application/json&#10;---&#10;{&#10;	"ERROR": "get/movies - error occured while fetching movie records",&#10;	"PAYLOAD": payload&#10;}]'/>
 			</on-error-propagate>
 		</error-handler>
 	</flow>
