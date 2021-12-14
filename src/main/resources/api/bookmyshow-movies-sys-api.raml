@@ -1,0 +1,16 @@
+#%RAML 1.0
+title: bookMyShow-movies-sys-api
+
+uses:
+ book_lib: /exchange_modules/2018f876-db43-4d14-bc10-235563564af6/bookmyshow-library/1.0.0/bookmyshow-library.raml
+
+/movies:
+    get:
+      is: [book_lib.client_id_secret_trait, book_lib.error_responses_trait]
+      responses:
+        200:
+          body:
+            application/json:
+              type: book_lib.get_movies_response_datatype[]
+              examples: 
+                output: !include /exchange_modules/2018f876-db43-4d14-bc10-235563564af6/get_movies_response_example/1.0.0/get_movies_response_example.raml

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="Movies" doc:id="00a237d7-ba1f-4036-a7eb-12474a7e5f67" >
+		<logger level="INFO" doc:name="start" doc:id="7ede32ff-b388-4bdf-b346-d73cbcb6500d" message='#[output application/json&#10;---&#10;{&#10;	"START": "get/movies - fetching movies data from hardcoded payload"	&#10;}]'/>
+		<ee:transform doc:name="hardcoded movies payload" doc:id="b529bc81-a5e9-496a-a48b-8a669598eaf4" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+[
+  {
+    moviename: "Jalsa",
+    city: "Pune",
+    theater: "City Pride",
+    date: "2021-10-21",
+    showtime: "04:30:00",
+    price: 50.0,
+    availableseats: 100
+  }, 
+  {
+    moviename: "Arya",
+    city: "Hyderabad",
+    theater: "AMB Cinemas",
+    date: "2021-09-30",
+    showtime: "05:30:00",
+    price: 100.0,
+    availableseats: 50
+  }
+]]]></ee:set-payload>
+			</ee:message>
+			<ee:variables >
+			</ee:variables>
+		</ee:transform>
+		<logger level="INFO" doc:name="end" doc:id="d6b0f815-268e-4da9-829d-05e7cb099556" message='#[output application/json&#10;---&#10;{&#10;	"END": "get/movies - Fetching movies was successfully completed",&#10;	"PAYLOAD": payload 	&#10;}]'/>
+		<error-handler>
+			<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="c1a0bf5d-e166-476b-b42c-ad175384ce91" >
+				<ee:transform doc:name="set error payload" doc:id="0bdfdf89-e8c4-4a28-a7e4-3b560d2ae4aa" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	error_type: "500 Server error",
+	error_description: "Internal Server error"
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+				<logger level="INFO" doc:name="Logger" doc:id="a2911bb6-cf7c-4f0d-8180-19d320601cde" message='#[output application/json&#10;---&#10;{&#10;	"ERROR": "get/movies - error occured while fetching movie records",&#10;	"PAYLOAD": payload&#10;}]'/>
+			</on-error-propagate>
+		</error-handler>
+	</flow>
+</mule>
