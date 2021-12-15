@@ -9,5 +9,5 @@ http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/m
 	<http:listener-config name="bookmyshow-movies-sys-api-httpListenerConfig" doc:name="HTTP Listener config" doc:id="75ef800e-e1b8-4162-9cf3-c34f0c0fa2d7" >
 		<http:listener-connection host="${http.host}" port="${http.port}" />
 	</http:listener-config>
-	<api-gateway:autodiscovery apiId="${autoDiscovery.Id}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="7288acf7-2b23-4efa-a9cb-27fd6fb7a734" flowRef="${autoDiscovery.flowName}" />
+	<api-gateway:autodiscovery apiId="${autoDiscovery.Id}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="6c2cbda9-8641-42a8-8115-c450904aac9c" flowRef="${autoDiscovery.flowName}" />
 </mule>

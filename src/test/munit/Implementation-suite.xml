@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="Implementation-suite.xml" />
+	<munit:test name="Movies-test" doc:id="a576be18-d42d-4f96-b502-07dbb02ab41e" >
+		<munit:behavior >
+			<munit:set-event doc:name="Set Input" doc:id="605910ac-dc4f-494d-a649-1676865f3e2d" >
+				<munit:payload value="#[readUrl('classpath://Moviestest\set-event_payload.dwl')]" encoding="UTF-8" />
+				<munit:attributes value="#[readUrl('classpath://Moviestest\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://Moviestest\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to Movies" doc:id="5e210eea-7ce3-4c3f-96ae-33641ea4a4b7" name="Movies"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="fa81ed1d-ac96-42b3-a59a-622b0e713e6b" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import Moviestest::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+<munit:test name="bookmyshow-movies-sys-api-main-test" doc:id="a8d72e16-af18-434d-aaaf-0e8a723ed0a1" >
+		<munit:behavior >
+			<munit:set-event doc:name="Set Input" doc:id="91578404-00c2-4fc9-8996-6bd861c959b8" >
+				<munit:payload value="#[readUrl('classpath://bookmyshowmoviessysapimaintest\set-event_payload.dwl')]" encoding="UTF-8" />
+				<munit:attributes value="#[readUrl('classpath://bookmyshowmoviessysapimaintest\set-event_attributes.dwl')]" />
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to bookmyshow-movies-sys-api-main" doc:id="f5876017-60c1-4102-af36-0516c8f781cb" name="get:\movies:bookmyshow-movies-sys-api-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="c13967b4-2552-4b11-a486-038fc00e4842" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import bookmyshowmoviessysapimaintest::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+
+</mule>

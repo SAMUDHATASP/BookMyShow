@@ -120,7 +120,7 @@ output application/json
             </on-error-propagate>
         </error-handler>
     </flow>
-    <flow name="get:\movies:bookmyshow-movies-sys-api-config">
+    <flow name="get:\movies:bookmyshow-movies-sys-api-config" doc:id="37f11824-0fb7-459a-934e-30353bdfb3b8">
 		<flow-ref doc:name="Movies" doc:id="6349dfc5-2f20-43d4-9166-47ce371095a4" name="Movies"/>
     </flow>
 </mule>
